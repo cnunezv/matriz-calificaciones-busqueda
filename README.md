@@ -1,1 +1,1 @@
-# matriz-calificaciones-busqueda
+# Matriz de calificaciones - Algoritmos de búsqueda
