@@ -96,4 +96,42 @@ public class BuscadorCalificaciones {
         }
         return coordenadas;
     }
+
+    /**
+     * Última aparición recorriendo la matriz al revés (de abajo hacia arriba y de
+     * derecha a izquierda). Retorna {fila, columna} o {-1, -1} si no existe.
+     *
+     * Complejidad: mejor caso O(1), peor caso O(n·m).
+     */
+    public int[] buscarUltimaAparicion(MatrizCalificaciones m, double nota) {
+        validar(m);
+        comparaciones = 0;
+        for (int i = m.getNumeroEstudiantes() - 1; i >= 0; i--) {
+            for (int j = m.getNumeroAsignaturas() - 1; j >= 0; j--) {
+                if (esIgual(m.getNota(i, j), nota)) {
+                    return new int[] {i, j};
+                }
+            }
+        }
+        return new int[] {-1, -1};
+    }
+
+    /**
+     * Todas las coincidencias con el estudiante (nombre de la fila) y la asignatura
+     * (nombre de la columna) que corresponden a cada posición encontrada.
+     *
+     * Complejidad: O(n·m) para encontrar las posiciones + O(k) para armar los
+     * k objetos Coincidencia; como k <= n·m, el total es O(n·m).
+     */
+    public Coincidencia[] buscarCoincidencias(MatrizCalificaciones m, double nota) {
+        int[][] coordenadas = obtenerCoordenadas(m, nota);
+        Coincidencia[] resultado = new Coincidencia[coordenadas.length];
+        for (int k = 0; k < coordenadas.length; k++) {
+            int fila = coordenadas[k][0];
+            int columna = coordenadas[k][1];
+            resultado[k] = new Coincidencia(fila, columna,
+                    m.getEstudiante(fila), m.getAsignatura(columna), m.getNota(fila, columna));
+        }
+        return resultado;
+    }
 }
