@@ -38,6 +38,9 @@ public class Main {
                 case "4":
                     demostracion();
                     break;
+                case "5":
+                    PruebasBuscador.ejecutarTodas();
+                    break;
                 case "0":
                     continuar = false;
                     break;
@@ -55,6 +58,7 @@ public class Main {
         System.out.println("2. Buscar una calificación");
         System.out.println("3. Cambiar de matriz (principal / alternativa)");
         System.out.println("4. Demostración automática (existe una vez, varias veces, no existe)");
+        System.out.println("5. Ejecutar casos de prueba");
         System.out.println("0. Salir");
     }
 
