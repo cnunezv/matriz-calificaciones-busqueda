@@ -56,4 +56,44 @@ public class BuscadorCalificaciones {
     public boolean existe(MatrizCalificaciones m, double nota) {
         return buscarPrimeraAparicion(m, nota)[0] != -1;
     }
+
+    /**
+     * Cuenta cuántas veces aparece la nota. Siempre recorre toda la matriz.
+     *
+     * Complejidad: O(n·m) en todos los casos.
+     */
+    public int contarOcurrencias(MatrizCalificaciones m, double nota) {
+        validar(m);
+        comparaciones = 0;
+        int contador = 0;
+        for (int i = 0; i < m.getNumeroEstudiantes(); i++) {
+            for (int j = 0; j < m.getNumeroAsignaturas(); j++) {
+                if (esIgual(m.getNota(i, j), nota)) {
+                    contador++;
+                }
+            }
+        }
+        return contador;
+    }
+
+    /**
+     * Todas las coordenadas {fila, columna} donde aparece la nota, en orden fila por fila.
+     * Si no aparece, retorna un arreglo vacío (longitud 0).
+     *
+     * Usa dos recorridos: el primero cuenta (para crear el arreglo del tamaño exacto)
+     * y el segundo llena las coordenadas. Complejidad: O(n·m).
+     */
+    public int[][] obtenerCoordenadas(MatrizCalificaciones m, double nota) {
+        int total = contarOcurrencias(m, nota);   // 1er recorrido
+        int[][] coordenadas = new int[total][];
+        int k = 0;
+        for (int i = 0; i < m.getNumeroEstudiantes(); i++) {   // 2do recorrido
+            for (int j = 0; j < m.getNumeroAsignaturas(); j++) {
+                if (esIgual(m.getNota(i, j), nota)) {
+                    coordenadas[k++] = new int[] {i, j};
+                }
+            }
+        }
+        return coordenadas;
+    }
 }
